@@ -7,7 +7,7 @@ const http = require('http');
 const server = http.createServer(app);
 
 const io = new Server(server);
-const port = 59090;
+const port = process.env.PORT;
 
 let name_list = new Set();
 function generate4DigitUUID() {
