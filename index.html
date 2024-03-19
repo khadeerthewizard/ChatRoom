@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizard Chat Room</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+    <div id="askname">
+        <form id="getname"><label for="name">Enter Your Name:</label>
+        <input id="name">
+        <input type="submit" id="setname">
+        </form>
+    </div>
+    <div class="messageApp disabled-div" id="appContainer">
+        <h2>Wizard Chat Room</h2>
+        <div id="messageArea">
+        </div>
+        <form id="form">
+            <div id="message_button"><textarea placeholder="Enter your message" id="message"></textarea>
+                <button id="send">Send</button></div>
+        </form>
+        
+    </div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    let socket = io();
+    let messageApp = document.getElementById('appContainer');
+    let form = document.getElementById('form');
+    let message = document.getElementById('message');
+    let messageArea = document.getElementById('messageArea');
+    let nameform = document.getElementById('getname');
+
+
+
+    nameform.addEventListener("submit",(e)=>{
+
+        let name = document.getElementById('name');
+        e.preventDefault();
+        if(name.value){
+            socket.emit('name',name.value);
+            nameform.style.display="none";
+            document.getElementById('askname').style.display="none";
+            messageApp.style.filter="none";
+            messageApp.classList.remove("disabled-div");
+        }
+        else{
+            alert("Invalid name");
+        }
+    });
+
+    form.addEventListener("submit",(e)=>{
+        e.preventDefault();
+
+        if(message.value){
+            socket.emit('message', message.value);
+            message.value = "";
+        }
+    });
+
+    socket.on("name",(user)=>{
+        localStorage.setItem('name',user);
+        name_list.add(user);
+    });
+
+    socket.on("message", (chat) =>{
+        let user = localStorage.getItem('name') || "Default";
+        let message_content = document.createElement("div");
+        let content = document.createElement("p");
+        
+        content.style.backgroundColor="white";
+        content.style.borderRadius="5px";
+        content.style.margin="10px";
+        content.textContent = chat;
+
+        let name = document.createElement("p");
+        name.style.backgroundColor="black";
+        name.style.color="White";
+        name.style.margin="10px";
+        name.textContent=user;
+        
+        name.style.width="70px";
+        message_content.appendChild(name);
+        message_content.appendChild(content)
+        messageArea.appendChild(message_content);
+    });
+</script>
+
+</html>

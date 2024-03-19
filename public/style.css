@@ -1,0 +1,95 @@
+body{
+    background-color: black;
+}
+
+.messageApp{
+    
+    background-color: black;
+    font-family: 'Courier New', Courier, monospace;
+    height: 100vh;
+    width: 400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+
+.disabled-div{
+    pointer-events: none;
+}
+
+#askname{
+    display: flex;
+    position: absolute;
+    z-index: 9999;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    background-color: white;
+}
+
+#messageArea{
+    width: 400px;
+    height: 70vh;
+    background-color: gray;
+    font-weight: bold;
+    
+    overflow:auto;
+}
+
+#messageArea > div{
+    display: flex;
+    flex-direction: row;
+}
+
+#messageArea >div > p{
+    display: block;
+    width: max-content;
+    max-width: 250px;
+    line-height: 100%;
+    border-radius: 5px;
+    padding: 4px;    
+    overflow-wrap: anywhere;
+    text-align: left;
+}
+
+#myname{
+    margin: 10px;
+    height:20px;
+}
+
+#message{
+    font-weight: bold;
+    resize: none;
+    height: 75px;
+    width: 300px;
+    border: 1px solid white;
+    color: white;
+    margin: 10px;
+    background-color: black;
+}
+
+#message_button{
+    display: flex;
+}
+
+#message:hover{
+    box-shadow: 0 0 20px 2px rgba(255, 255, 255, 0.5);
+}
+#send{
+    height: 75px;
+    width: 65px;
+    margin: auto;
+    margin-left: 0;
+}
+
+h2{
+    color: white;
+}
